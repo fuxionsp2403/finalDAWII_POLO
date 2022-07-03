@@ -1,0 +1,98 @@
+<div>
+    <form class="content" (submit) = "saveSede()">
+      <div class="submit-form">
+        <div class="row">
+          <div class="col-lg-12">
+            <h6>Registro de Sedes</h6>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 3%">
+          <div class="col-lg-6">
+            <label for="nombre">Nombres</label>
+            <input
+              type="text"
+              class="form-control"
+              name="nombre"
+              id="nombre"
+              [(ngModel)] = "sede.nombre"
+            />
+          </div>
+
+          <div class="col-lg-6">
+            <label for="fechaRegistro">Fecha de Registro</label>
+            <input
+              type="text"
+              disabled="disabled"
+              class="form-control"
+              value="{{fecha}}"
+            />
+          </div>
+        </div>
+
+        <div class="row" style="margin-top: 3%">
+          
+
+          <div class="col-lg-6">
+            <label for="direccion">Direccion</label>
+            <input
+              type="text"
+              class="form-control"
+              name="direccion"
+              id="direccion"
+              [(ngModel)] = "sede.direccion"
+              
+            />
+          </div>
+
+            <div class="col-lg-6">
+                <label for="fechaCreacion">Fecha de Creacion</label>
+                <input type="date"[(ngModel)]="sede.fechaCreacion" [ngModelOptions]="{standalone: true}" placeholder="Fecha Creacion"class="form-control" id="inputPassword4">
+                                            
+            </div>
+        </div>        
+        <div class="row" style="margin-top: 3%">
+
+          <div class="col-lg-3">
+            <label for="codigoPostal">Codigo Postal</label>
+            <input
+              type="text"
+              class="form-control"
+              id="codigoPostal"
+              name="codigoPostal"
+              [(ngModel)] = "sede.codigoPostal"
+            />
+          </div>
+
+          <div class="col-lg-3">
+            <label for="estado">Estado</label>
+            <input
+              type="text"
+              disabled="disabled"
+              id="estado"
+              class="form-control"
+              name="estado"
+              value="1"
+            />
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="inputZip">Pais</label>
+            <select [(ngModel)]="idPais"[ngModelOptions]="{standalone: true}" id="inputState" class="form-control">
+                <option selected value="0">Seleccione</option>
+                <option *ngFor="let p of pais" [value]="p.idPais">{{p.nombre}}</option>
+              </select>
+          </div>
+
+        </div>
+        
+
+        <div class="row" style="margin-top: 3%">
+          <div class="col-lg-12">
+            <button class="btn btn-success">Registrar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+

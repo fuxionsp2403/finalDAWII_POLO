@@ -1,0 +1,341 @@
+<div class="row">
+  <div class="container-fluid bg-fondo">
+    <div class="row">
+      <div class="col-12 col-md-11-1 p-0 ps-3">
+        <div class="home-section">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-1 pb-5">
+                <h1 class="text-center titulo">CRUD DE PRODUCTOS</h1>
+              </div>
+             
+              <div class="col-12">
+                <div class="row">
+                 <form 
+                    action="#"
+                    method="post"
+                    class="col-11  col-lg-8 m-auto shadow-lg p-3 mb-5 bg-body rounded"
+                  >
+                    <div class="form-row">
+                      <div class="form-group col-md-6">
+                        <label for="inputEmail4">Nombre</label>
+                        <input
+                          type="text"
+                          [(ngModel)]="nombre"
+                          (keyup)="enter($event)"
+                          [ngModelOptions]="{ standalone: true }"
+                          placeholder="Nombre Producto"
+                          class="form-control"
+                          id="inputEmail4"
+                        />
+                      </div>
+                      <div
+                        class="form-group col-md-6 d-flex align-items-center"
+                        style="margin-top: 28px"
+                      >
+                        <div class="d-flex w-100 justify-content-center">
+                          <button
+                            type="button"
+                            (click)="filterButton()"
+                            class="btn"
+                            [ngClass]="color"
+                            (mouseenter)="hover()"
+                            (mouseleave)="hover()"
+                          >
+                            Filtrar
+                          </button>
+                          &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                          <button
+                            type="button"
+                            class="btn btn-success"
+                            data-toggle="modal"
+                            data-target="#exampleModal"
+                            data-whatever="@mdo"
+                           (click)="nuevoRegistro()">
+                            Agregar
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <br />
+                <br />
+                <div class="row">
+                  <table class="table table-striped table-bordered">
+                    <thead class="thead-dark">
+                      <tr class="text-center">
+                        <th scope="col">#</th>
+                        <th scope="col">NOMBRE</th>
+                        <th scope="col">MARCA</th>
+                        <th scope="col">PAIS</th>
+                        <th scope="col">STOCK</th>
+                        <th scope="col">PRECIO</th>
+                        <th scope="col">FECHA VIGENTE</th>
+                        <th scope="col">ESTADO</th>
+                        <th scope="col">OPERACION</th>
+                      </tr>
+                    </thead>
+                    <tbody  >
+                      <tr 
+                        *ngFor="let p of producto"
+                        class="text-center"  style="vertical-align: middle;"
+                        [ngClass]="{'bg-selecion': registroOne==p.idProducto}" 
+                      >
+                        <th scope="row" class="pt-4">{{ p.idProducto }}</th>
+                        <td class="pt-4">{{ p.nombre }}</td>
+                        <td  class="pt-4">{{ p.marcaAux }}</td>
+                        <td  class="pt-4">{{ p.paisAux }}</td>
+                        <td  class="pt-4" style="font-weight: 500" >{{ p.stock }}</td>
+                        <td  class="pt-4" style="font-weight: 500" >{{ p.precio | currency:"S/.":"symbol" }}</td>
+                        <td  class="pt-4" > {{ p.fechaVigencia }}  </td>
+                        <td>
+                          <div class="custom-control custom-switch">
+                            <input
+                              type="checkbox"
+                              class="custom-control-input"
+                              id="idEstado_{{ p.idProducto }}"
+                              [checked]="p.estado == 1 ? true : false"
+                              name="estado"
+                              (change)="actualizaEstado(p)"
+                            />
+                            <label
+                              class="custom-control-label"
+                              for="idEstado_{{ p.idProducto }}"
+                            ></label>
+                            <td *ngIf="p.estado == 1" class="text-success">
+                             <strong> ACTIVO</strong>
+                            </td>
+                            <td *ngIf="p.estado == 0" class="text-danger">
+                               <strong> INACTIVO</strong>
+                            </td>
+                          </div>
+                        </td>
+                        <td  class="pt-4">
+                          <button [disabled]="p.estado==0"
+                            class="btn btn-warning"
+                            role="button"
+                            data-toggle="modal"
+                            data-target="#exampleModal"
+                            data-whatever="@mdo"
+                            (click)="consultarProducto(p.idProducto)"
+                          >
+                            Edit
+                          </button>
+                          &nbsp;
+                          <button class="btn btn-danger" (click)="eliminar(p.idProducto)" role="button">
+                            Delet
+                          </button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <div
+                    *ngIf="result"
+                    class="alert alert-secondary w-100 text-center"
+                    role="alert"
+                  >
+                    No existen datos encontrados
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="modal fade"
+    id="exampleModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="exampleModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content ">
+        <div class="modal-header  bg-info text-light">
+          <h5 class="modal-title" id="exampleModalLabel"><strong>{{titulo}}</strong> </h5>
+          <button
+          style="color: #fff; font-size: 35px;"
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+            id="cerrar"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+        <div class="modal-body mt-3 mb-3 ">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="name">Nombre</label>
+              <input
+                type="text"
+                [(ngModel)]="p.nombre"
+                [ngModelOptions]="{ standalone: true }"
+                placeholder="Nombre Producto"
+                class="form-control"
+                 [maxLength]="40"
+                 [minlength]="3"
+                id="nameProduco"
+              />
+              <div *ngIf="nombreInput"  class="text-danger">
+                El nombre es obligatorio y de 3 a 50 caracteres
+              </div>
+            </div>
+            <div class="form-group col-md-6">
+              <label for="inputPassword4">Serie</label>
+              <input
+                type="text"
+                [(ngModel)]="p.serie"
+                [ngModelOptions]="{ standalone: true }"
+                placeholder="Serie"
+                class="form-control"
+                onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
+                [maxLength]="11"
+                [minlength]="3"
+                id="inputPassword4"
+              />
+              <div *ngIf="serieInput"  class="text-danger">
+                La Serie es obligatorio y de 11 caracteres
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="inputEmail4">Durabilidad</label>
+              <input
+                type="text"
+                [(ngModel)]="p.durabilidad"
+                [ngModelOptions]="{ standalone: true }"
+                placeholder="Durabilidad"
+                onKeypress="if (!(event.keyCode < 45 || event.keyCode > 57)) event.returnValue = false;"
+                class="form-control"
+                [maxLength]="30"
+                [minlength]="3"
+                id="inputEmail4"
+              />
+              <div *ngIf="durabilidadInput"  class="text-danger">
+                La durabilidad es obligatorio y de 3 - 50 caracteres
+              </div>
+            </div>
+            <div class="form-group col-md-5">
+              <label for="inputPassword4">Fecha Vigente</label>
+              <input
+                type="date"
+                [(ngModel)]="p.fechaVigencia"
+                [ngModelOptions]="{ standalone: true }"
+                placeholder="Fecha Vigente"
+                class="form-control"
+                id="inputPassword4"
+              />
+              <div *ngIf="fechaVigenciaInput"  class="text-danger">
+                La fecha Vigente es obligatorio 
+              </div>
+            </div>
+            
+            <div class="form-group col-md-3">
+              <label for="inputState">stock</label>
+              <input
+                type="number"
+                [(ngModel)]="p.stock"
+                [ngModelOptions]="{ standalone: true }"
+                placeholder="Stock"
+                class="form-control"
+                min="1"
+                maxlength="9"
+                max="1000"
+                id="inputZip"
+              />  <div *ngIf="stockInput"  class="text-danger">
+                El stock es obligatorio  mayor a 0
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-4">
+              <label for="inputCity">Pecio</label>
+              <input
+                type="text"
+                [(ngModel)]="p.precio"
+                [ngModelOptions]="{ standalone: true }"
+                placeholder="Precio"
+                onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;"
+
+                class="form-control"
+                minLength="1"
+                maxlength="5"
+                id="inputCity"
+              /><div *ngIf="precioInput"  class="text-danger">
+                El precio es obligatorio 
+              </div>
+            </div>
+            <div class="form-group col-md-4">
+              <label for="inputZip">Marca</label>
+              <select
+                [(ngModel)]="idMarca"
+                [ngModelOptions]="{ standalone: true }"
+                id="inputState" (change)="onChange($event)"
+                class="form-control"
+              >
+                <option selected value="0">Seleccione</option>
+                <option *ngFor="let m of marca" [value]="m.idMarca">
+                  {{ m.nombre }}
+                </option>
+              </select>
+              <div *ngIf="marcaInput"  class="text-danger">
+                Seleccione una marca 
+              </div>
+            </div>
+            
+            <div class="form-group col-md-4">
+              <label for="inputZip">Pais</label>
+              <select
+                [(ngModel)]="idPais"
+                [ngModelOptions]="{ standalone: true }"
+                id="inputState" (change)="onChange($event)" 
+                class="form-control"
+              >
+                <option selected value="0">Seleccione</option>
+                <option *ngFor="let p of pais" [value]="p.idPais">
+                  {{ p.nombre }}
+                </option>
+              </select>
+              <div *ngIf="paisInput"  class="text-danger">
+                Seleccione un pais 
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer bg-info d-flex justify-content-between ">
+          <div class="row pt-2 w-100">
+            <div class="form-group col-md-3  float-right"> 
+              <input
+                type="text"
+                value="{{ fecha }}"
+                disabled="disabled"
+                class="form-control"
+                id="inputPassword4"
+              />
+            </div>
+            <div class="form-group col-md-8  d-flex justify-content-end">
+              <button
+              style="border: 1px solid #fff !important;"
+              type="button"
+              (click)="guardar()"
+              class="btn btn-secondary"
+            >
+              Guardar
+            </button>
+            </div>
+        
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

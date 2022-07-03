@@ -1,0 +1,106 @@
+
+<div class="row">
+    <div class="container-fluid bg-fondo">
+        <div class="row">
+            <div class="col-12   col-md-11-1 p-0 ps-3">
+                <div class="home-section">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-12 p-1 pb-3">
+                                <h1 class="text-center titulo" >CONSULTA DE PRODUCTOS</h1>
+                            </div>
+                            <div class="col-12">
+                                <div class="row">
+                                    <form action="#" method="post"
+                                        class="col-11 col-lg-8 m-auto shadow-lg p-3 mb-5 bg-body rounded">
+                                            <div class="form-row">
+                                              <div class="form-group col-md-6">
+                                                <label for="inputEmail4">Nombre</label>
+                                                <input type="text" [(ngModel)]="nombre"[ngModelOptions]="{standalone: true}"  placeholder="Nombre Producto" class="form-control" id="inputEmail4">
+                                              </div>
+                                              <div class="form-group col-md-6">
+                                                <label for="inputPassword4">Fecha Vigente</label>
+                                                <input type="date" [(ngModel)]="fecha"[ngModelOptions]="{standalone: true}" placeholder="Fecha Vigente"class="form-control" id="inputPassword4">
+                                              </div>
+                                            </div>
+                                              <div class="form-row">
+                                               <div class="form-group col-md-6">
+                                                <label for="inputZip">Marca</label>
+                                                <select [(ngModel)]="idMarca"[ngModelOptions]="{standalone: true}"  id="inputState" class="form-control">
+                                                    <option selected value="-1">Seleccione</option>
+                                                    <option *ngFor="let m of marca" [value]="m.idMarca" >{{m.nombre}}</option>
+                                                  </select>
+                                              </div>
+                                              <div class="form-group col-md-6">
+                                                <label for="inputZip">Pais</label>
+                                                <select [(ngModel)]="idPais"[ngModelOptions]="{standalone: true}" id="inputState" class="form-control">
+                                                    <option selected value="-1">Seleccione</option>
+                                                    <option *ngFor="let p of pais" [value]="p.idPais">{{p.nombre}}</option>
+                                                  </select>
+                                              </div>  
+                                            </div>
+                                             
+                                            <div class="form-row ">
+                                                <div class="form-group col-md-6 ">
+                                                  <div class="form-row ">
+                                                    <div class="form-group col-md-6 ">
+                                                      <label for="inputPassword4">Stock</label> 
+                                                      <input type="text" [(ngModel)]="stock"[ngModelOptions]="{standalone: true}" placeholder="Stock Producto"class="form-control" id="inputPassword4">
+                                                    </div>
+                                                    <div class="form-group col-md-6 d-flex align-items-center justify-content-end mt-4">
+                                                      <div class="custom-control custom-switch ">
+                                                        <input type="checkbox"[(ngModel)]="estado"[ngModelOptions]="{standalone: true}" class="custom-control-input" id="customSwitch1">
+                                                        <label class="custom-control-label"  for="customSwitch1">Estado</label>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                                <div class="form-group col-md-6 d-flex align-items-center">
+                                                  <div class="d-flex w-100 justify-content-center">
+                                                    <button type="button" (click)="filter()" class="btn " [ngClass]="color" (mouseenter) ="hover()" (mouseleave)="hover()" >Filtrar</button>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                       </form>
+                                      </div>  <br> <br>
+                                    <div class="row">
+                                        <table class=" table table-striped table-bordered">
+                                            <thead class="thead-dark">
+                                              <tr  class="text-center">
+                                                <th scope="col">#</th>
+                                                <th scope="col">NOMBRE</th>
+                                                <th scope="col">MARCA</th>
+                                                <th scope="col">PAIS</th>
+                                                <th scope="col">STOCK</th>
+                                                <th scope="col">FECHA</th>
+                                                <th scope="col">ESTADO</th>
+                                              </tr>
+                                          
+                                            </thead>
+                                            <tbody>
+                                              <tr *ngFor="let p of producto" class="text-center">
+                                                <th scope="row">{{p.idProducto}}</th>
+                                                <td>{{p.nombre}}</td>
+                                                <td>{{p.marcaAux}}</td>
+                                                <td >{{p.paisAux}}</td>
+                                                <td>{{p.stock}}</td>
+                                                <td>{{p.fechaVigencia}}</td>
+                                                <td *ngIf="(p.estado==1)" class="text-success">ACTIVO</td>
+                                                <td *ngIf="(p.estado==0)" class="text-danger">INACTIVO</td>
+                                              </tr>  </tbody>
+                                           
+                                          </table> 
+                                          <div *ngIf ="result" class="alert alert-secondary w-100 text-center" role="alert">
+                                               No existen datos encontrados
+                                              </div>
+                                    </div>
+                                    
+                           
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+

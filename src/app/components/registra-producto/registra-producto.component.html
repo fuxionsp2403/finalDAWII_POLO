@@ -1,0 +1,83 @@
+<div class="container-fluid bg-fondo">
+    <div class="row">
+        <div class="col-12   col-md-11-1 p-0 ps-3">
+            <div class="home-section">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-12 p-1 pb-3">
+                            <h1 class="text-center titulo" >Registro Producto</h1>
+                        </div>
+                        <div class="col-12">
+                            <div class="row">
+                            <div class="col-12 d-flex justify-content-center p-3">
+                                <h1></h1>
+                            </div>
+                                <form action="#" method="post"
+                                    class="col-11 col-lg-6 m-auto shadow-lg p-3 mb-5 bg-body rounded">
+                                        <div class="form-row">
+                                          <div class="form-group col-md-6">
+                                            <label for="inputEmail4">Nombre</label>
+                                            <input type="text" [(ngModel)]="p.nombre"[ngModelOptions]="{standalone: true}" placeholder="Nombre Producto" class="form-control" id="inputEmail4">
+                                          </div>
+                                          <div class="form-group col-md-6">
+                                            <label for="inputPassword4">Serie</label>
+                                            <input type="text" [(ngModel)]="p.serie"[ngModelOptions]="{standalone: true}"placeholder="Serie"  class="form-control" id="inputPassword4">
+                                          </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="form-group col-md-6">
+                                              <label for="inputEmail4">Durabilidad</label>
+                                              <input type="text"[(ngModel)]="p.durabilidad"[ngModelOptions]="{standalone: true}"placeholder="Durabilidad"  class="form-control" id="inputEmail4">
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                              <label for="inputPassword4">Fecha Vigente</label>
+                                              <input type="date"[(ngModel)]="p.fechaVigencia" [ngModelOptions]="{standalone: true}" placeholder="Fecha Vigente"class="form-control" id="inputPassword4">
+                                            </div>
+                                          </div>
+                                        <div class="form-row">
+                                          <div class="form-group col-md-6">
+                                            <label for="inputCity">Pecio</label>
+                                            <input type="text"[(ngModel)]="p.precio"[ngModelOptions]="{standalone: true}" placeholder="Precio"class="form-control" id="inputCity">
+                                          </div>
+                                          <div class="form-group col-md-4">
+                                            <label for="inputState">stock</label>
+                                            <input type="number"[(ngModel)]="p.stock"[ngModelOptions]="{standalone: true}" placeholder="Stock"class="form-control" id="inputZip">
+                                          </div>
+                                          <div class="form-group col-md-2">
+                                            <label for="inputZip">estado</label>
+                                            <input  type="number" min="0" max="1" [(ngModel)]="p.estado" [ngModelOptions]="{standalone: true}" placeholder="Estado" class="form-control" id="inputZip">
+                                          </div>
+                                          <div class="form-group col-md-6">
+                                            <label for="inputZip">Marca</label>
+                                            <select [(ngModel)]="idMarca"[ngModelOptions]="{standalone: true}"  id="inputState" class="form-control">
+                                                <option selected value="0">Seleccione</option>
+                                                <option *ngFor="let m of marca" [value]="m.idMarca" >{{m.nombre}}</option>
+                                              </select>
+                                          </div>
+                                          <div class="form-group col-md-6">
+                                            <label for="inputZip">Pais</label>
+                                            <select [(ngModel)]="idPais"[ngModelOptions]="{standalone: true}" id="inputState" class="form-control">
+                                                <option selected value="0">Seleccione</option>
+                                                <option *ngFor="let p of pais" [value]="p.idPais">{{p.nombre}}</option>
+                                              </select>
+                                          </div>
+                                        </div>
+                                      <div class="row">
+                                          <div class="form-group col-md-3">
+                                            <label for="inputPassword4">Fecha Registro</label>
+                                            <input type="text" value="{{fecha}}" disabled="disabled"  class="form-control" id="inputPassword4">
+                                          </div>
+                                          <div class="col-md-9">   <label for="inputPassword4">&nbsp;</label>
+                                            <div class="d-flex justify-content-center">
+                                                <button type="button" (click)="guardar()" class="btn btn-primary">Guardar</button>
+                                            </div>
+                                          </div>
+                                      </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>

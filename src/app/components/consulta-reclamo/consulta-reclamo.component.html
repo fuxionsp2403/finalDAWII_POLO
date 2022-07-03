@@ -1,0 +1,88 @@
+<div>
+    <form class="content">
+        <div class="submit-form">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1>Consulta de Reclamo</h1>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top: 2%">
+          
+                <label for="descripcion" class="col-lg-1"> Descripcion</label>
+                <div class="col-lg-2">
+                    <input type="text" class="form-control" name="descripcion" id="descripcion" [(ngModel)]="descripcion">
+                </div>
+
+                <label for="tiporeclamo" class="col-lg-1">Tipo de Reclamo</label>
+                <div class="col-lg-2">
+                    <select type="text" class="form-control" name="tiporeclamo" id="tiporeclamo" >
+                        <option value="-1">[Seleccione]</option>
+
+                    </select>
+                </div>
+                <label for="cliente" class="col-lg-1">Cliente</label>
+                <div class="col-lg-2">
+                    <select type="text" class="form-control" name="cliente" id="cliente" >
+                        <option value="-1">[Seleccione]</option>
+                        <option *ngFor="let aux of cliente" value="{{ aux }}">
+                            {{ aux }}
+                        </option>
+                    </select>
+                </div>
+                <div class="col-lg-2">
+                    <div class="custom-control custom-switch">
+                        <input type="checkbox" class="custom-control-input" id="estado" [(ngModel)]="estado" checked name="estado"/>
+                    <label class="custom-control-label" for="estado">Estado</label>
+                    </div>
+                </div>
+
+            
+            <div class="col-lg-4">
+                <label for="fechaDeNacimiento">Fecha de Commpra</label>
+                <input type="date" class="form-control" name="fechaDeNacimiento" id="fechaDeNacimiento" [(ngModel)]="fechaCompra"/>
+            </div>
+            <div class="col-lg-2" style="margin-top: 2% ">
+                <button class="btn btn-success">Filtrar</button>
+            </div>
+        </div>
+
+            <div class="row" style="margin-top: 3%">
+                <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Descripcion</th>
+                    <th>Tipo de Reclamo</th>
+                    <th>Cliente</th>
+                    <th>Fecha de Compra</th>
+                    <th>Estado</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let aux of reclamo">
+                    <td>{{aux.idReclamo}}</td>
+                    <td>{{aux.descripcion}}</td>
+                    <td>{{aux.tipoReclamo!.descripcion}}</td>
+                    <td>{{aux.cliente!.nombres}}</td>
+                    <td>{{aux.fechaCompra}}</td>
+                    <td>{{aux.estado == 1? "Activo" : "Inactivo"}}</td>
+                    <td>
+                   
+                    </td>
+                    <td>
+                   
+                    </td>
+                    <td>
+                   
+                    </td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                </tbody>
+                </table>
+            </div>
+
+        </div>
+    </form>
+</div>

@@ -1,0 +1,161 @@
+<div>
+    <form class="content" (submit)="consultaCliente()">
+        <div class="submit-form">
+        <div class="row">
+            <div class="col-lg-12">
+            <h6>Consulta de Cliente</h6>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 2%">
+            <label for="dni" class="col-lg-1">Nombre</label>
+            <div class="col-lg-2">
+            <input
+            type="text"
+            class="form-control"
+            name="nombre"
+            id="nombre"
+            [(ngModel)]="nombre"
+            />
+            </div>
+            <label for="dni" class="col-lg-1">Apellidos</label>
+            <div class="col-lg-2">
+            <input
+            type="text"
+            class="form-control"
+            name="apellidos"
+            id="apellidos"
+            [(ngModel)]="apellidos"
+            />
+        </div>
+        <label for="dni" class="col-lg-1">DNI</label>
+        <div class="col-lg-2">
+            <input
+            type="text"
+            class="form-control"
+            name="dni"
+            id="dni"
+            [(ngModel)]="dni"
+            />
+        </div>
+        <div class="col-lg-3">
+            <label for="fechaDeNacimiento">Fecha de nacimiento</label>
+            <input
+            type="date"
+            class="form-control"
+            name="fechaDeNacimiento"
+            id="fechaDeNacimiento"
+            [(ngModel)]="fechaNacimiento"
+            />
+        </div>
+        <div class="col-lg-2">
+            <div class="custom-control custom-switch">
+                <input
+                type="checkbox"
+                class="custom-control-input"
+                id="estado"
+                [(ngModel)]="estado"
+                checked
+                name="estado"
+                />
+            <label class="custom-control-label" for="estado">Estado</label>
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <button class="btn btn-success">Filtrar</button>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 2%">
+            <div class="col-lg-4">
+            <label for="departamento">Departamento</label>
+            <select
+            id="departamento"
+            name="departamento"
+            class="form-control"
+            (change)="listaProvincia()"
+            [(ngModel)]="departamentos"
+            >
+                <option value="-1">[Seleccione]</option>
+                <option *ngFor="let aux of ubigeoDepartamentos" value="{{ aux }}">
+                {{ aux }}
+                </option>
+            </select>
+            </div>
+
+        <div class="col-lg-4">
+            <label for="provincia">Provincia</label>
+            <select
+            id="provincia"
+            name="provincia"
+            class="form-control"
+            (change)="listaDistrito()"
+            [(ngModel)]="provincias"
+            >
+            <option value="-1">[Seleccione]</option>
+            <option *ngFor="let aux of ubigeoProvincias" value="{{ aux }}">
+                {{ aux }}
+            </option>
+            </select>
+        </div>
+
+        <div class="col-lg-4">
+            <label for="distrito">Distrito</label>
+            <select
+            id="distrito"
+            name="distrito"
+            class="form-control"
+            [(ngModel)]="distritos"
+            >
+            <option value="-1">[Seleccione]</option>
+            <option
+              *ngFor="let aux of ubigeoDistritos"
+                value="{{ aux.idUbigeo }}"
+            >
+                {{ aux.distrito }}
+            </option>
+            </select>
+        </div>
+        </div>
+
+
+        <div class="row" style="margin-top: 3%">
+            <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Apellidos</th>
+                <th>DNI</th>
+                <th>Departamento</th>
+                <th>Provincia</th>
+                <th>Distrito</th>
+                <th>Estado</th>
+                <th>Fecha de nacimiento</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let aux of clientes">
+                <td>{{ aux.idCliente }}</td>
+                <td>{{ aux.nombres }}</td>
+                <td>{{ aux.apellidos }}</td>
+                <td>{{ aux.dni }}</td>
+                <td>
+                {{ aux.ubigeo?.departamento }}
+                </td>
+                <td>
+                {{ aux.ubigeo?.provincia }}
+                </td>
+                <td>
+                {{ aux.ubigeo?.distrito }}
+                </td>
+                <td>{{ aux.estado == 1 ? "Activo" : "Inactivo" }}</td>
+                <td>{{ aux.fechaNacimiento }}</td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+    </form>
+</div>
